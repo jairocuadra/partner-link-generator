@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <p [innerHTML]="data.message"></p>
+  
+  <div *ngIf="data.existingLink" class="link-container">
+    <p><strong>Your Existing Partner Link:</strong></p>
+    <div class="link-box">
+      {{ data.existingLink }}
+      <button *ngIf="data.showCopyButton" mat-icon-button class="copy-button" (click)="copyToClipboard(data.existingLink)" matTooltip="Copy to clipboard">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </div>
+    <p class="link-info">
+      This link directs customers to our quick quote tool with your agency information pre-filled. It's ready to use on your website, email campaigns, or social media.
+    </p>
+  </div>
+  
+  <div *ngIf="data.link" class="link-container">
+    <p><strong>New Generated Link:</strong></p>
+    <div class="link-box">
+      {{ data.link }}
+      <button *ngIf="data.showCopyButton" mat-icon-button class="copy-button" (click)="copyToClipboard(data.link)" matTooltip="Copy to clipboard">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">{{ data.cancelButtonText }}</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">{{ data.confirmButtonText }}</button>
+</mat-dialog-actions>
