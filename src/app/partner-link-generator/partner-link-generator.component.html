@@ -1,100 +1,114 @@
-<div class="container">
-  <mat-card class="form-card">
-    <mat-card-header>
-      <mat-card-title>Generate Quote-to-Apply Partner Link</mat-card-title>
-      <mat-card-subtitle>Create a custom link for your agency to use our quick quote tool</mat-card-subtitle>
-    </mat-card-header>
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="header">
+      <h1 class="title">Partner Link Generator</h1>
+      <p class="subtitle">Create a custom link for your agency to use our quick quote tool</p>
+    </div>
     
-    <mat-card-content>
+    <div class="form-container">
       <form [formGroup]="partnerLinkForm" (ngSubmit)="onGenerateLink()">
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Agency Code</mat-label>
-            <input matInput formControlName="agencyCode" placeholder="Enter agency code">
-            <mat-hint>Your unique agency identifier</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('agencyCode')?.hasError('required')">
-              Agency code is required
-            </mat-error>
-          </mat-form-field>
+        <div class="form-section">
+          <h2 class="section-title">Agency Information</h2>
           
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>General Agency Code</mat-label>
-            <input matInput formControlName="generalAgencyCode" placeholder="Enter general agency code">
-            <mat-hint>Your parent agency's identifier</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('generalAgencyCode')?.hasError('required')">
-              General agency code is required
-            </mat-error>
-          </mat-form-field>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Agency Code</mat-label>
+              <input matInput formControlName="agencyCode" placeholder="Enter agency code">
+              <mat-hint>Your unique agency identifier</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('agencyCode')?.hasError('required')">
+                Agency code is required
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>General Agency Code</mat-label>
+              <input matInput formControlName="generalAgencyCode" placeholder="Enter general agency code">
+              <mat-hint>Your parent agency's identifier</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('generalAgencyCode')?.hasError('required')">
+                General agency code is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Product Type</mat-label>
+              <mat-select formControlName="productType">
+                <mat-option *ngFor="let product of productTypes" [value]="product">
+                  {{ product }}
+                </mat-option>
+              </mat-select>
+              <mat-hint>Select the insurance product to offer</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('productType')?.hasError('required')">
+                Product type is required
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
         
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Product Type</mat-label>
-            <mat-select formControlName="productType">
-              <mat-option *ngFor="let product of productTypes" [value]="product">
-                {{ product }}
-              </mat-option>
-            </mat-select>
-            <mat-hint>Select the insurance product to offer</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('productType')?.hasError('required')">
-              Product type is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-        
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Partner Name</mat-label>
-            <input matInput formControlName="partnerName" placeholder="Enter partner name">
-            <mat-hint>Your agency or business name</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('partnerName')?.hasError('required')">
-              Partner name is required
-            </mat-error>
-          </mat-form-field>
-        </div>
-        
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Partner Website</mat-label>
-            <input matInput formControlName="partnerWebsite" placeholder="Enter partner website">
-            <mat-hint>e.g., www.youragency.com</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('partnerWebsite')?.hasError('required')">
-              Partner website is required
-            </mat-error>
-            <mat-error *ngIf="partnerLinkForm.get('partnerWebsite')?.hasError('pattern')">
-              Please enter a valid website URL
-            </mat-error>
-          </mat-form-field>
-        </div>
-        
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Partner Phone</mat-label>
-            <input matInput formControlName="partnerPhone" placeholder="Enter 10-digit phone number">
-            <mat-hint>Format: 1234567890 (no dashes or spaces)</mat-hint>
-            <mat-error *ngIf="partnerLinkForm.get('partnerPhone')?.hasError('required')">
-              Partner phone is required
-            </mat-error>
-            <mat-error *ngIf="partnerLinkForm.get('partnerPhone')?.hasError('pattern')">
-              Please enter a valid 10-digit phone number
-            </mat-error>
-          </mat-form-field>
+        <div class="form-section">
+          <h2 class="section-title">Partner Details</h2>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Partner Name</mat-label>
+              <input matInput formControlName="partnerName" placeholder="Enter partner name">
+              <mat-hint>Your agency or business name</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('partnerName')?.hasError('required')">
+                Partner name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Partner Website</mat-label>
+              <input matInput formControlName="partnerWebsite" placeholder="Enter partner website">
+              <mat-icon matSuffix>language</mat-icon>
+              <mat-hint>e.g., www.youragency.com</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('partnerWebsite')?.hasError('required')">
+                Partner website is required
+              </mat-error>
+              <mat-error *ngIf="partnerLinkForm.get('partnerWebsite')?.hasError('pattern')">
+                Please enter a valid website URL
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Partner Phone</mat-label>
+              <input matInput formControlName="partnerPhone" placeholder="Enter 10-digit phone number">
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-hint>Format: 1234567890 (no dashes or spaces)</mat-hint>
+              <mat-error *ngIf="partnerLinkForm.get('partnerPhone')?.hasError('required')">
+                Partner phone is required
+              </mat-error>
+              <mat-error *ngIf="partnerLinkForm.get('partnerPhone')?.hasError('pattern')">
+                Please enter a valid 10-digit phone number
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
         
         <div *ngIf="previewLink" class="preview-section">
-          <h3>Link Preview</h3>
-          <div class="preview-link">{{ previewLink }}</div>
+          <h2 class="section-title">Link Preview</h2>
+          <div class="preview-link-container">
+            <div class="preview-link">{{ previewLink }}</div>
+            <button mat-icon-button class="copy-button" matTooltip="Copy to clipboard" (click)="copyToClipboard(previewLink)">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </div>
           <p class="preview-note">This is a preview of your link. Click "Generate Link" to create and activate it.</p>
         </div>
         
-        <div class="button-row">
-          <button mat-button type="button" (click)="onCancel()">Cancel</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" type="submit" [disabled]="isLoading" class="submit-button">
             <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
             <span *ngIf="!isLoading">Generate Link</span>
           </button>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </div>

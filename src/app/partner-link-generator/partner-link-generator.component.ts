@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { PartnerLinkService } from '../services/partner-link.service';
 import { PartnerLink, ProductType } from '../models/partner-link.model';
@@ -189,6 +191,25 @@ export class PartnerLinkGeneratorComponent implements OnInit {
       if ((control as any).controls) {
         this.markFormGroupTouched(control as FormGroup);
       }
+    });
+  }
+
+  copyToClipboard(text: string): void {
+    navigator.clipboard.writeText(text).then(() => {
+      this.snackBar.open('Link copied to clipboard', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: 'success-snackbar'
+      });
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+      this.snackBar.open('Failed to copy link', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+        panelClass: 'error-snackbar'
+      });
     });
   }
 }

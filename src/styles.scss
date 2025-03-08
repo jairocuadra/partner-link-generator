@@ -2,3 +2,26 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Custom Snackbar Styles */
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+.mat-snack-bar-container {
+  &.success-snackbar, &.error-snackbar {
+    .mat-simple-snackbar {
+      color: white;
+    }
+    
+    .mat-simple-snackbar-action {
+      color: white;
+    }
+  }
+}
